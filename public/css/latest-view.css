@@ -1,0 +1,23 @@
+.latest-view{
+    width: 90%;
+    margin:10px 5%;
+    overflow:hidden;
+    overflow-x:auto;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+    border-radius: var(--radius);
+    white-space:nowrap;
+}
+
+.latest-view.pet{
+    height:550px;
+}
+
+.latest-view.user{
+    height:450px;
+}
+
+.dashboard.title{
+    font-family: 'Pacifico', cursive;
+    margin:30px 50px 10px 50px;
+}
+

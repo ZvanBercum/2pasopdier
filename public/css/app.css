@@ -1,0 +1,27 @@
+body{
+    margin:0;
+    padding:0;
+    --navigation-height: 40px;
+    --dropdown-width: 160px;
+    --cardWidth: 250px;
+    --cardHeight: 220px;
+    --latestViewHeight:500px;
+    --primaryColor:#b54758;
+    --primaryColorLighter: #e1586d;
+    --primaryColorDarker: #712c36;
+    --secondaryColor:#6479ab;
+    --secondaryColorLighter: #7f99d8;
+    --secondaryColorDarker: #384462;
+    --backgroundColor:#dee6f4;
+    --textColor: #131113;
+    --textColorHover: #322d32;
+    --radius:4px;
+    background-color:var(--backgroundColor);
+    color:var(--textColor);
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+.hidden{
+    display:none;
+}
