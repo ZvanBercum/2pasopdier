@@ -12,12 +12,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::middleware(['auth'])->group(function() {
+    Route::redirect('/', 'dashboard');
     Route::get('/dashboard', [App\Http\Controllers\UserController::class, 'dashboard'])->name('dashboard');
     Route::get('/user/show/{id}', [App\Http\Controllers\UserController::class, 'show']);
     Route::get('/pet/show/{id}', [App\Http\Controllers\PetController::class, 'show']);

@@ -1,0 +1,90 @@
+.logincontainer{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    border-radius:var(--radius);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    padding:10px;
+    text-align: center;
+}
+
+.logincontainer img{
+    width:50%;
+    margin-top:5%;
+}
+
+.logincontainer .forminput{
+    width: 90%;
+    margin:auto;
+}
+
+.logincontainer .forminput label{
+    text-align:left;
+    display:block;
+    padding-top:24px;
+}
+
+.logincontainer .forminput input{
+    width: 100%;
+    padding: 6px;
+    border-radius: var(--radius);
+    border: 1px solid black;
+}
+
+.logincontainer .remember{
+    text-align:left;
+    margin-left:5%;
+    font-size: 0.9em;
+}
+
+.logincontainer .btn{
+    padding: 12px 32px;
+    background-color:var(--primaryColor);
+    border:1px solid var(--primaryColorLighter);
+    border-radius: var(--radius);
+    cursor:pointer;
+    transition:0.3s;
+    color:var(--backgroundColor);
+    float:right;
+    margin: 5% 2% 0 0;
+}
+
+.logincontainer .btn:hover{
+    background-color:var(--primaryColorLighter);
+    border-color: var(--primaryColor);
+}
+
+.logincontainer .forgot,
+.logincontainer .login{
+    position:absolute;
+    bottom: 2px;
+    left: 10px;
+    font-size:0.8em;
+    color:var(--textColor);
+    cursor:pointer;
+    transition:0.3s;
+    text-decoration: none;
+}
+
+.logincontainer .forgot:hover,
+.logincontainer .login:hover{
+    color:var(--textColorHover);
+    text-decoration:underline;
+}
+
+.logincontainer .register{
+    position:absolute;
+    top:2px;
+    right:10px;
+    font-size:0.8em;
+    color:var(--textColor);
+    cursor:pointer;
+    transition:0.3s;
+    text-decoration:none;
+}
+
+.logincontainer .register:hover{
+    color:var(--textColorHover);
+    text-decoration:underline;
+}
