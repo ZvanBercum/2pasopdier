@@ -34,22 +34,10 @@
             </div>
         @endif
 
-        <div class="rating">
-            @if($type === 'user')
-                @for($i = 0; $i < $item->rating; $i++)
-                    <i class="fas fa-star"></i>
-                @endfor
-                @for($i; $i <5; $i++)
-                    <i class="far fa-star"></i>
-                @endfor
-            @else
-                @for($i = 0; $i < $item->user->rating; $i++)
-                    <i class="fas fa-star"></i>
-                @endfor
-                @for($i; $i <5; $i++)
-                    <i class="far fa-star"></i>
-                @endfor
-            @endif
-        </div>
+        @if($type === 'user')
+            <x-rating :rated="$item->rating"></x-rating>
+        @else
+            <x-rating :rated="$item->user->rating"></x-rating>
+        @endif
     </div>
 </div>

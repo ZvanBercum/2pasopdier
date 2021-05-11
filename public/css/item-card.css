@@ -20,15 +20,6 @@
     border-top-right-radius:4px;
 }
 
-.card .name{
-    font-family: 'Pacifico', cursive;
-    margin:1px;
-    white-space:nowrap;
-    text-overflow:ellipsis;
-    overflow:hidden;
-    padding: 0 2px;
-}
-
 .card .type{
     margin:-7px 0 10px 0;
     color:var(--primaryColor);

@@ -39,21 +39,10 @@
 }
 
 .logincontainer .btn{
-    padding: 12px 32px;
-    background-color:var(--primaryColor);
-    border:1px solid var(--primaryColorLighter);
-    border-radius: var(--radius);
-    cursor:pointer;
-    transition:0.3s;
-    color:var(--backgroundColor);
     float:right;
     margin: 5% 2% 0 0;
 }
 
-.logincontainer .btn:hover{
-    background-color:var(--primaryColorLighter);
-    border-color: var(--primaryColor);
-}
 
 .logincontainer .forgot,
 .logincontainer .login{

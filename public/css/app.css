@@ -25,3 +25,30 @@ body{
 .hidden{
     display:none;
 }
+
+.name{
+    font-family: 'Pacifico', cursive;
+    margin: 1px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 0 2px;
+}
+
+button{
+    padding: 12px 32px;
+    background-color:var(--primaryColor);
+    border:1px solid var(--primaryColorLighter);
+    border-radius: var(--radius);
+    cursor:pointer;
+    transition:0.3s;
+    color:var(--backgroundColor);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+
+}
+
+button:hover{
+    background-color:var(--primaryColorLighter);
+    border-color: var(--primaryColor);
+}
+
