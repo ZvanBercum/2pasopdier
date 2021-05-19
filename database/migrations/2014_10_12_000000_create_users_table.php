@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('location');
             $table->string('pref_picture')->nullable();
             $table->integer('rating')->nullable();
+            $table->text('profile')->nullable();
             $table->string('role');
             $table->rememberToken();
             $table->timestamps();

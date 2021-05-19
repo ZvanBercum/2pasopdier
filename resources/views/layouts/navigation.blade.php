@@ -5,10 +5,10 @@
 
     <div class="menu">
         @if(Auth::user()->role()->get()[0]->upload_pets)
-            <a class="menu-btn">oppasMATCH!</a>
+            <a class="menu-btn" href="{{route('oppassers')}}">oppasMATCH!</a>
         @endif
         @if(Auth::user()->role()->get()[0]->accept_pets)
-            <a class="menu-btn">dierenMATCH!</a>
+            <a class="menu-btn" href="{{route('dieren')}}">dierenMATCH!</a>
         @endif
     </div>
     <div class="user-options" onclick="openDropDown()">

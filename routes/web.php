@@ -20,9 +20,17 @@ Route::middleware(['auth'])->group(function() {
 
 });
 
+Route::middleware(['auth', 'sitter'])->group(function(){
+    Route::get('/showpets', [App\Http\Controllers\PetController::class, 'pets'])->name('dieren');
+});
+
+Route::middleware(['auth', 'owner'])->group(function(){
+    Route::get('/showsitters', [App\Http\Controllers\UserController::class, 'sitters'])->name('oppassers');
+});
+
     Route::get('/user_edit_profile', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('user_edit_profile');
+    })->middleware(['auth'])->name('user_edit_profile');
 
 
 require __DIR__.'/auth.php';

@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="{{ asset('css/navigation.css') }}">
         <link rel="stylesheet" href="{{ asset('css/item-card.css') }}">
         <link rel="stylesheet" href="{{ asset('css/latest-view.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/overview.css') }}">
         <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
 
         <!-- Font awesome -->

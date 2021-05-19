@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Auth;
 
-class checkIfSitter
+class checkIfOwner
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class checkIfSitter
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->role()->get()[0]->accept_pets) return $next($request);
+        if(Auth::user()->role()->get()[0]->upload_pets) return $next($request);
         return redirect('/');
     }
 }

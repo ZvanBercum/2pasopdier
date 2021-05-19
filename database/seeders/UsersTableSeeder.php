@@ -21,6 +21,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('wachtwoord'),
             'location' => 'Alphen aan den Rijn',
             'pref_picture'=> '/img/users/zissely.jpg',
+            'profile' => 'Hallo, ik ben zissely van Bercum!<br/> Ik hou heel erg veel van paarden.',
             'rating' => 4,
             'role'=> 1,
             'created_at'=> now(),

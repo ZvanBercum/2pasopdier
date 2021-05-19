@@ -44,19 +44,10 @@ class UserController extends Controller {
 //        ]);
 //    }
 
-//    public function sitters(){
-//        $sitters = [];
-//        $users = User::all();
-//        foreach($users as $user) {
-//            foreach($user->roles as $role){
-//                if($role['accept_pets']){
-//                    $sitters[] = $user;
-//                }
-//            }
-//        }
-//
-//        return view('user.sitters',[
-//            'sitters' => $sitters
-//        ]);
-//    }
+    public function sitters(){
+        $sitters = User::whereIn('role', [1,2,4])->orderBy('created_at', 'desc')->get();
+        return view('user.sitters',[
+            'sitters' => $sitters
+        ]);
+    }
 }

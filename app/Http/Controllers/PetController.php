@@ -27,4 +27,11 @@ class PetController extends Controller {
     public function delete($id){
 
     }
+
+    public function pets(){
+        $pets = Pet::orderBy('created_at', 'desc')->get();
+        return view('pet.pets',[
+            'pets' => $pets
+        ]);
+    }
 }

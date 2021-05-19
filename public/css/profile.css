@@ -48,5 +48,10 @@
     right: 5%;
 }
 
+.profile .type{
+    margin: -7px 0 10px 0;
+    color: var(--primaryColor);
+}
+
 
 
