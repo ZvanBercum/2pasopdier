@@ -19,6 +19,7 @@ class UsersTableSeeder extends Seeder
             'gender' => 'female',
             'email' => 'zisvanbercum@hotmail.com',
             'password' => bcrypt('wachtwoord'),
+            'age' => 27,
             'location' => 'Alphen aan den Rijn',
             'pref_picture'=> '/img/users/zissely.jpg',
             'profile' => 'Hallo, ik ben zissely van Bercum!<br/> Ik hou heel erg veel van paarden.',
@@ -36,6 +37,18 @@ class UsersTableSeeder extends Seeder
             'pref_picture'=> '/img/users/jeroen.jpg',
             'rating' => 5,
             'role' => 4,
+            'created_at'=> now(),
+            'updated_at'=> now()
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Jan Janssen',
+            'gender' => 'male',
+            'email' => 'jantje.jan@live.nl',
+            'password' => bcrypt('wachtwoord'),
+            'location' => 'Rotterdam',
+            'rating' => 2,
+            'role' => 4,
+            'age' => 88,
             'created_at'=> now(),
             'updated_at'=> now()
         ]);

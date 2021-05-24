@@ -15,3 +15,33 @@ function goToUser(id){
 function goToPet(id){
     window.location.href="/pet/show/"+id;
 }
+
+function filterSitters(el) {
+    let href = new URL(window.location);
+    let extraEl = null;
+    let extraVal = null;
+    let elId = el.id;
+    let elValue = el.value;
+    if (el.id === 'minage') {
+        extraEl = document.getElementById('maxage');
+        extraVal = extraEl.value;
+    } else if (el.id === 'maxage') {
+        extraEl = document.getElementById('minage');
+        extraVal = extraEl.value;
+    } else if(el.id === 'female' || el.id === 'male' || el.id === 'gender'){
+        elId = 'gender';
+        elValue = '';
+        if(document.getElementById('female').checked){
+            elValue+=('-female');
+        }
+        if(document.getElementById('male').checked){
+            elValue+=('-male');
+        }
+        if(document.getElementById('gender').checked){
+            elValue+=('-anders');
+        }
+    }
+    href.searchParams.set(elId, elValue);
+    if (extraEl) href.searchParams.set(extraEl.id, extraVal);
+    window.location.replace(href);
+}

@@ -19,6 +19,8 @@ class CreatePetsTable extends Migration
             $table->string('name');
             $table->foreignId('type_id')->references('id')->on('pet_types')->onDelete('cascade');
             $table->foreignId('owner_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('gender')->nullable();
+            $table->string('age')->nullable();
             $table->boolean('active');
             $table->text('profile');
             $table->integer('price');

@@ -1,3 +1,6 @@
+<?php
+$ages = ['adult'=> 'Volwassen', 'elderly' => 'Bejaard', 'child' => 'Jong'];
+?>
 <div class="card {{$type}}" data-card-name="{{$item->name}}" onclick="goTo{{ucfirst($type)}}({{ $item->id }})">
     <img src={{URL::asset($item->pref_picture ?? 'img/paw-black-shape.png')}} alt="Huisdierenfoto">
     <div class="card-info">
@@ -8,6 +11,15 @@
         <div class="icon-container location">
             <i class="fas fa-map-marker-alt"></i>
             {{ $item->location ?? $item->user->location }}
+        </div>
+        <div class="icon-container gender">
+            <i class="fas fa-{{$item->gender}}"></i>
+        @if($type === 'user')
+                {{$item->age}}
+            @endif
+            @if($type === 'pet')
+                {{$ages[$item->age] ?? '' }}
+            @endif
         </div>
         @if($type === 'pet')
             <div class="icon-container house">

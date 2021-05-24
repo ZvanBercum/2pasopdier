@@ -1,3 +1,19 @@
 .overview{
     text-align:center;
 }
+
+.filtering{
+    width: 200px;
+    height: 100%;
+    position:sticky;
+    top: var(--navigation-height);
+    padding: 15px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+}
+
+.filtering #age input{
+    width: 50px;
+    display:inline-block;
+
+}
+
