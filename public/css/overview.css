@@ -1,5 +1,8 @@
 .overview{
     text-align:center;
+    position:absolute;
+    top: var(--navigation-height);
+    margin: 5% auto;
 }
 
 .filtering{
@@ -9,11 +12,59 @@
     top: var(--navigation-height);
     padding: 15px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+    background-color:var(--backgroundColor);
+    z-index:100;
+    -moz-border-radius-bottomright: var(--radius);
+    border-bottom-right-radius: var(--radius);
 }
 
+.filtering form{
+    margin-top:16px;
+    border-top:1px solid rgba(0, 0, 0, 0.15);
+}
+
+.filtering form p{
+    margin-top:12px;
+    margin-bottom:2px;
+}
 .filtering #age input{
     width: 50px;
     display:inline-block;
-
 }
+
+.filtering .icon-container.search{
+    transition:0.3s;
+}
+
+.filtering .icon-container.search:hover{
+    cursor:pointer;
+    color:var(--primaryColor);
+}
+
+#gender input{
+    float:left;
+}
+
+#gender label,
+#gender input{
+    cursor: pointer;
+}
+
+#location,
+#gender input,
+#age input,
+#type{
+    cursor:pointer;
+    background-color: white;
+    border: solid 1px var(--primaryColor);
+    padding:8px;
+    border-radius: var(--radius);
+}
+
+#location,
+#type{
+    width: 200px;
+}
+
+
 

@@ -7,7 +7,6 @@ function openDropDown(){
     }
 }
 
-
 function goToUser(id){
     window.location.href="/user/show/"+id;
 }
@@ -16,7 +15,7 @@ function goToPet(id){
     window.location.href="/pet/show/"+id;
 }
 
-function filterSitters(el) {
+function filter(el) {
     let href = new URL(window.location);
     let extraEl = null;
     let extraVal = null;
@@ -44,4 +43,13 @@ function filterSitters(el) {
     href.searchParams.set(elId, elValue);
     if (extraEl) href.searchParams.set(extraEl.id, extraVal);
     window.location.replace(href);
+}
+
+function openContainer(){
+    let filterForm = document.getElementById('filterForm');
+    if(filterForm.classList.contains('hidden')){
+        filterForm.classList.remove('hidden');
+    }else{
+        filterForm.classList.add('hidden');
+    }
 }
