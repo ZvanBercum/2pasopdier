@@ -1,5 +1,12 @@
 <?php
 $ages = ['adult'=> 'Volwassen', 'elderly' => 'Bejaard', 'child' => 'Jong'];
+if($type ===  'user'){
+    $date = new DateTime($item->age);
+    $now = new DateTime();
+    $age = $now->diff($date)->y;
+}elseif($type === 'pet'){
+    $age = $ages[$item->age] ?? '';
+}
 ?>
 <div class="card {{$type}}" data-card-name="{{$item->name}}" onclick="goTo{{ucfirst($type)}}({{ $item->id }})">
     <img src={{URL::asset($item->pref_picture ?? 'img/paw-black-shape.png')}} alt="Huisdierenfoto">
@@ -14,12 +21,7 @@ $ages = ['adult'=> 'Volwassen', 'elderly' => 'Bejaard', 'child' => 'Jong'];
         </div>
         <div class="icon-container gender">
             <i class="fas fa-{{$item->gender}}"></i>
-        @if($type === 'user')
-                {{$item->age}}
-            @endif
-            @if($type === 'pet')
-                {{$ages[$item->age] ?? '' }}
-            @endif
+                {{$age}}
         </div>
         @if($type === 'pet')
             <div class="icon-container house">

@@ -25,11 +25,31 @@
     padding-top:24px;
 }
 
-.logincontainer .forminput input{
+.logincontainer .forminput input,
+.logincontainer .forminput select{
+    box-sizing: border-box;
     width: 100%;
     padding: 6px;
     border-radius: var(--radius);
     border: 1px solid black;
+}
+
+.logincontainer .forminput.age{
+    display:inline;
+}
+
+.logincontainer .forminput.age label{
+    margin-left:5%;
+}
+
+#age_day{
+    width:20%;
+}
+#age_month{
+    width:40%;
+}
+#age_year{
+    width:25%;
 }
 
 .logincontainer .remember{

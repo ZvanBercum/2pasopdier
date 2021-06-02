@@ -37,11 +37,18 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
         ]);
-
+        $date = sprintf("%02d", $request->age_day).'-'.sprintf("%02d", $request->age_month).'-'.$request->age_year;
+        $timestamp = strtotime($date);
+        $age = date("Y-m-d", $timestamp);
         Auth::login($user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'location' => $request->location,
+            'role' => $request->role,
+            'gender' => $request->gender,
+            'age' => $age
+
         ]));
 
         event(new Registered($user));

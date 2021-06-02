@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use DB;
+use Carbon\Carbon;
 
 class UsersTableSeeder extends Seeder
 {
@@ -19,7 +20,7 @@ class UsersTableSeeder extends Seeder
             'gender' => 'female',
             'email' => 'zisvanbercum@hotmail.com',
             'password' => bcrypt('wachtwoord'),
-            'age' => 27,
+            'age' => Carbon::parse('1994-10-23'),
             'location' => 'Alphen aan den Rijn',
             'pref_picture'=> '/img/users/zissely.jpg',
             'profile' => 'Hallo, ik ben zissely van Bercum!<br/> Ik hou heel erg veel van paarden.',
@@ -48,7 +49,7 @@ class UsersTableSeeder extends Seeder
             'location' => 'Rotterdam',
             'rating' => 2,
             'role' => 4,
-            'age' => 88,
+            'age' => Carbon::parse('2000-01-01'),
             'created_at'=> now(),
             'updated_at'=> now()
         ]);
