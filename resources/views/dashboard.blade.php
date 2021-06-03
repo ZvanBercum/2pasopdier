@@ -1,6 +1,6 @@
 <x-app-layout>
-    <h1 class="dashboard title">Nieuwste oppassers</h1>
     @if(Auth::user()->role()->get()[0]->upload_pets)
+        <h1 class="dashboard title">Nieuwste oppassers</h1>
         <x-latest-view :items="$sitters" :type="'user'"/>
     @endif
     @if(Auth::user()->role()->get()[0]->accept_pets)

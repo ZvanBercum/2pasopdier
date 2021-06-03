@@ -66,5 +66,11 @@
     width: 200px;
 }
 
+.center{
+    width: 100%;
+    text-align:center;
+}
 
-
+.center button{
+    margin-top:12px;
+}

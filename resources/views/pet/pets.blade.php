@@ -32,5 +32,5 @@
             </div>
         </form>
     </div>
-    <x-overview :items="$pets" :type="'pet'"></x-overview>
+    <x-overview :items="$pets" :type="'pet'" :mode="'view'"></x-overview>
 </x-app-layout>

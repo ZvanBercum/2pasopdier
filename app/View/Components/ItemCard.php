@@ -13,11 +13,13 @@ class ItemCard extends Component
      */
     public $item;
     public $type;
+    public $mode;
 
-    public function __construct($item, $type)
+    public function __construct($item, $type, $mode)
     {
         $this->item = $item;
         $this->type = $type;
+        $this->mode = $mode;
         //
     }
 

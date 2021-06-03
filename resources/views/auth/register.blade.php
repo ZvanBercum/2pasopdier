@@ -32,7 +32,7 @@ $year = Date("Y") - 15;
 
             <div class="forminput">
                 <x-label for="location" :value="_('Woonplaats')"/>
-                <x-input id="location" type="text" name="location" required/>
+                <x-input id="location" type="text" name="location" :value="old('location')" required/>
             </div>
 
             <div class="forminput">
@@ -53,29 +53,7 @@ $year = Date("Y") - 15;
                 </select>
             </div>
 
-            <div class="forminput age">
-                <x-label for="age" :value="__('Geboortedatum')"/>
-                <x-input id="age_day" name="age_day" type="number" min="1" max="31"/>
-            </div>
-            <div class="forminput age">
-                <select id="age_month" name="age_month">
-                    <option value="1">januari</option>
-                    <option value="2">februari</option>
-                    <option value="3">maart</option>
-                    <option value="4">april</option>
-                    <option value="5">mei</option>
-                    <option value="6">juni</option>
-                    <option value="7">juli</option>
-                    <option value="8">augustus</option>
-                    <option value="9">september</option>
-                    <option value="10">oktober</option>
-                    <option value="11">november</option>
-                    <option value="12">december</option>
-                </select>
-            </div>
-            <div class="forminput age">
-                <x-input id="age_year" name="age_year" type="number" min="1920" max="{{$year}}"/>
-            </div>
+            <x-age-input/>
 
 
             <!-- Password -->

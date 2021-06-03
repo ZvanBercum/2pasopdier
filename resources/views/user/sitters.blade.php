@@ -37,5 +37,5 @@
             </div>
         </form>
     </div>
-    <x-overview :items="$sitters" :type="'user'"></x-overview>
+    <x-overview :items="$sitters" :type="'user'" :mode="'view'"></x-overview>
 </x-app-layout>

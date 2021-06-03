@@ -18,9 +18,10 @@
         <link rel="stylesheet" href="{{ asset('css/latest-view.css') }}">
         <link rel="stylesheet" href="{{ asset('css/overview.css') }}">
         <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
-
         <!-- Font awesome -->
        <script src="https://kit.fontawesome.com/889b7cea00.js" crossorigin="anonymous"></script>
+        <!-- CKEditor -->
+        <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>

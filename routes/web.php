@@ -15,8 +15,17 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->group(function() {
     Route::redirect('/', 'dashboard');
     Route::get('/dashboard', [App\Http\Controllers\UserController::class, 'dashboard'])->name('dashboard');
-    Route::get('/user/show/{id}', [App\Http\Controllers\UserController::class, 'show']);
-    Route::get('/pet/show/{id}', [App\Http\Controllers\PetController::class, 'show']);
+    Route::get('/user/show/{id}', [App\Http\Controllers\UserController::class, 'show'])->name('user.show');
+    Route::get('/user/edit', [App\Http\Controllers\UserController::class, 'edit'])->name('user_edit_profile');
+    Route::put('/user/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
+    Route::get('/pet/show/{id}', [App\Http\Controllers\PetController::class, 'show'])->name('pet.show');
+    Route::get('/pet/owner/', [App\Http\Controllers\PetController::class, 'owner'])->name('owner_pets');
+    Route::get('/pet/edit/{id}', [App\Http\Controllers\PetController::class, 'edit'])->name('pet.edit');
+    Route::put('/pet/update/{id}', [App\Http\Controllers\PetController::class, 'update'])->name('pet.update');
+    Route::get('/pet/add/', [App\Http\Controllers\PetController::class, 'add'])->name('pet.add');
+
+
+
 
 });
 
@@ -27,10 +36,5 @@ Route::middleware(['auth', 'sitter'])->group(function(){
 Route::middleware(['auth', 'owner'])->group(function(){
     Route::get('/showsitters', [App\Http\Controllers\UserController::class, 'sitters'])->name('oppassers');
 });
-
-    Route::get('/user_edit_profile', function () {
-    return view('dashboard');
-    })->middleware(['auth'])->name('user_edit_profile');
-
 
 require __DIR__.'/auth.php';

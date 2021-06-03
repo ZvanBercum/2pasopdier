@@ -4,23 +4,15 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Overview extends Component
+class ageInput extends Component
 {
-
-    public $items;
-    public $type;
-    public $mode;
-
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($items, $type, $mode)
+    public function __construct()
     {
-        $this->items = $items;
-        $this->type = $type;
-        $this->mode = $mode;
     }
 
     /**
@@ -30,6 +22,6 @@ class Overview extends Component
      */
     public function render()
     {
-        return view('components.overview');
+        return view('components.age-input');
     }
 }

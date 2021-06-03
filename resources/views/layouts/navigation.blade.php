@@ -17,6 +17,9 @@
     </div>
     <div id="user-dropdown" class="hidden dropdown">
         <a class="btn" href="{{ route('user_edit_profile')}}">Bewerk Profiel</a>
+        @if(Auth::user()->role()->get()[0]->upload_pets)
+            <a class="btn" href="{{ route('owner_pets')}}">Huisdieren</a>
+        @endif
         <a class="btn" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logoutForm').submit(); ">Uitloggen</a>
     </div>
 

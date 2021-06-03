@@ -53,3 +53,14 @@ function openContainer(){
         filterForm.classList.add('hidden');
     }
 }
+
+(function(){
+    if(window.location.pathname  ==  '/user/edit' ||
+    window.location.pathname == '/pet/edit'){
+        setTimeout(function(){
+            let t = document.getElementById('profile').getAttribute('data-profile');
+            CKEDITOR.instances['profile'].setData(t);
+        }, 200);
+
+    }
+})();

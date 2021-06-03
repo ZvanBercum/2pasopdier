@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Pet;
 use Auth;
+use DateTime;
 
 class UserController extends Controller {
 
@@ -26,23 +28,42 @@ class UserController extends Controller {
             'user' => User::findOrFail($id)
         ]);
     }
-//    public function index(){
-//        return view('user.index',[
-//            'users' => User::all()
-//        ]);
-//    }
-//
-//    public function show($id){
-//        return view('user.show',[
-//            'user' => User::findOrFail($id)
-//        ]);
-//    }
-//
-//    public function edit($id){
-//        return view('user.edit',[
-//            'user' => User::findOrFail($id)
-//        ]);
-//    }
+
+    public function edit(){
+        return view('user.edit',[
+            'user' => User::findOrFail(Auth::user()->id)
+        ]);
+    }
+
+    public function update(Request $request, $id){
+        $user = User::findOrFail($id);
+        $setAge = false;
+        echo($user);
+        foreach($request->all() as $name => $newValue){
+            switch ($name){
+                case 'age_day':
+                case 'age_month':
+                case 'age_year':
+                    if($setAge)break;
+                    $date = sprintf("%02d", $request->age_day).'-'.sprintf("%02d", $request->age_month).'-'.$request->age_year;
+                    $timestamp = strtotime($date);
+                    $user->age =date("Y-m-d", $timestamp);
+                    $setAge = true;
+
+                    break;
+                default:
+                    echo($name);
+                    if(isset($user[$name])){
+                        if(!is_null($newValue) && $user[$name] != $newValue){
+                            $user[$name] = $newValue;
+                        }
+                    }
+                    break;
+            }
+        }
+        $user->save();
+        return redirect()->route('user.show', $user->id);
+    }
 
     public function sitters(Request $request){
         $male = false;
@@ -64,7 +85,10 @@ class UserController extends Controller {
                    }
             })
             ->when(request('minage'), function($query, $request){
-                return $query->whereBetween('age', [request('minage'), request('maxage')]);
+                $now = Carbon::now();
+                $maxYear =($now->year - request('minage')).'-01-01';
+                $minYear =($now->year - request('maxage')-1).'-01-01';
+                return $query->whereBetween('age', [$minYear, $maxYear]);
             })
             ->when(request('gender'), function($query, $request){
                 $genders = explode('-', request('gender'));
@@ -75,12 +99,18 @@ class UserController extends Controller {
 
         $places = User::pluck('location');
         $minAge = User::min('age');
+        $date = new DateTime($minAge);
+        $now = new DateTime();
+        $minAge = $now->diff($date)->y;
         $maxAge = User::max('age');
+        $date = new DateTime($maxAge);
+        $now = new DateTime();
+        $maxAge = $now->diff($date)->y;
         return view('user.sitters',[
             'sitters' => $sitters,
             'places' => $places,
-            'minage' => $minAge,
-            'maxage' => $maxAge,
+            'minage' => $maxAge,
+            'maxage' => $minAge,
             'female' => $female,
             'male' => $male,
             'def_loc' => $loc

@@ -53,5 +53,74 @@
     color: var(--primaryColor);
 }
 
+/*PROFILE EDITING*/
+.profile-edit{
+    text-align:center;
+}
 
+.profile-edit input,
+.profile-edit select,
+.profile-edit #location,
+.profile-edit #type,
+.profile-edit #cke_profile{
+    cursor: pointer;
+    background-color: white;
+    border: solid 1px var(--primaryColor);
+    padding: 8px;
+    border-radius: var(--radius);
+    width:80%;
+    margin:auto;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.profile-edit #cke_profile{
+    padding:1px;
+}
+
+.profile-edit label{
+    display:block;
+    margin-top:12px;
+}
+
+.profile-edit .forminput.age{
+    display:inline;
+}
+
+.profile-edit .forminput.file input{
+    text-align:left;
+    width:calc(80% - 60px);
+}
+
+#age_day{
+    width:20%;
+}
+#age_month{
+    width:39%;
+}
+#age_year{
+    width:20%;
+}
+
+.profile-edit #profile{
+    height: 300px;
+}
+
+.profile-edit .owner-picture {
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    transform: translate(0,45%);
+    border-top: 2px solid var(--primaryColor);
+}
+
+.profile-edit .forminput.file label{
+    margin-bottom: -26px;
+}
+
+.profile-edit button{
+    margin:20px;
+}
 

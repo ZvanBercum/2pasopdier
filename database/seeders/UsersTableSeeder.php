@@ -29,18 +29,7 @@ class UsersTableSeeder extends Seeder
             'created_at'=> now(),
             'updated_at'=> now()
         ]);
-        DB::table('users')->insert([
-            'name' => 'Jeroen Rijsdijk',
-            'gender' => 'male',
-            'email' => 'rijsdijk.j@hsleiden.nl',
-            'password' => bcrypt('wachtwoord'),
-            'location' => 'Ter Aar',
-            'pref_picture'=> '/img/users/jeroen.jpg',
-            'rating' => 5,
-            'role' => 4,
-            'created_at'=> now(),
-            'updated_at'=> now()
-        ]);
+
         DB::table('users')->insert([
             'name' => 'Jan Janssen',
             'gender' => 'male',

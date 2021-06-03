@@ -6,6 +6,8 @@ use App\Models\PetType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Pet;
+use Auth;
+
 
 class PetController extends Controller {
 
@@ -22,9 +24,54 @@ class PetController extends Controller {
 
     }
 
-    public function edit($id){
-
+    public function owner(){
+        return view('pet.owner',[
+            'user' => User::findOrFail(Auth::user()->id)
+        ]);
     }
+
+    public function edit($id){
+        $type_old = PetType::get(['id','name']);
+        $types = [];
+        foreach($type_old as $object){
+            $types[$object['id']] = $object['name'];
+        }
+        return view('pet.edit',[
+            'pet' => Pet::findOrFail($id),
+            'types' => $types
+        ]);
+    }
+
+    public function update(Request $request, $id){
+//        $user = User::findOrFail($id);
+//        $setAge = false;
+//        echo($user);
+//        foreach($request->all() as $name => $newValue){
+//            switch ($name){
+//                case 'age_day':
+//                case 'age_month':
+//                case 'age_year':
+//                    if($setAge)break;
+//                    $date = sprintf("%02d", $request->age_day).'-'.sprintf("%02d", $request->age_month).'-'.$request->age_year;
+//                    $timestamp = strtotime($date);
+//                    $user->age =date("Y-m-d", $timestamp);
+//                    $setAge = true;
+//
+//                    break;
+//                default:
+//                    echo($name);
+//                    if(isset($user[$name])){
+//                        if(!is_null($newValue) && $user[$name] != $newValue){
+//                            $user[$name] = $newValue;
+//                        }
+//                    }
+//                    break;
+//            }
+//        }
+//        $user->save();
+//        return redirect()->route('user.show', $user->id);
+    }
+
 
     public function delete($id){
 

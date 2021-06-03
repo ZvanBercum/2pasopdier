@@ -8,9 +8,9 @@ if($type ===  'user'){
     $age = $ages[$item->age] ?? '';
 }
 ?>
-<div class="card {{$type}}" data-card-name="{{$item->name}}" onclick="goTo{{ucfirst($type)}}({{ $item->id }})">
-    <img src={{URL::asset($item->pref_picture ?? 'img/paw-black-shape.png')}} alt="Huisdierenfoto">
-    <div class="card-info">
+<div class="card {{$type}}" data-card-name="{{$item->name}}">
+    <img src={{URL::asset($item->pref_picture ?? 'img/paw-black-shape.png')}} alt="Huisdierenfoto" onclick="goTo{{ucfirst($type)}}({{ $item->id }})">
+    <div class="card-info" onclick="goTo{{ucfirst($type)}}({{ $item->id }})">
         <h2 class="name">{{$item->name}}</h2>
         @if($type === 'pet')
             <p class="type">{{$item->type->name}}</p>
@@ -41,17 +41,22 @@ if($type ===  'user'){
                 @endif
             </div>
         @endif
-        @if($type === 'user')
-            <div class="icon-container pets">
-                <i class="fas fa-paw"></i>
-                {{ count($item->pets)}}
-            </div>
-        @endif
+        @if($mode == 'view')
+            @if($type === 'user')
+                <div class="icon-container pets">
+                    <i class="fas fa-paw"></i>
+                    {{ count($item->pets)}}
+                </div>
+            @endif
 
-        @if($type === 'user')
-            <x-rating :rated="$item->rating"></x-rating>
-        @else
-            <x-rating :rated="$item->user->rating"></x-rating>
+            @if($type === 'user')
+                <x-rating :rated="$item->rating"></x-rating>
+            @else
+                <x-rating :rated="$item->user->rating"></x-rating>
+            @endif
         @endif
     </div>
+    @if($mode == 'edit')
+        <button onclick="window.location='{{ route($type.'.edit',[$item->id]) }}'">Bewerken</button>
+    @endif
 </div>
