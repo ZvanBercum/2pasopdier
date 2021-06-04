@@ -1,6 +1,6 @@
 <div class="profile">
     <img class="owner-picture" src={{URL::asset($subject->pref_picture ?? 'img/paw-black-shape.png')}} alt="{{$subject->name}}">
-    @if($subject->owner_id !== Auth::user()->id && is_null($subject->sitter_id))
+    @if(!is_null($subject->owner_id) && $subject->owner_id !== Auth::user()->id && is_null($subject->sitter_id))
         <form action="{{route('pet.accept', [$subject->id])}}" method="POST">
             @csrf
             @method('PUT')
@@ -9,7 +9,7 @@
     @elseif($subject->owner_id === Auth::user()->id)
         <button class="fav" onclick="window.location='{{ route('pet.edit',[$subject->id]) }}'"> <i class="far fa-edit"></i> Bewerk</button>
     @elseif(is_null($subject->owner_id) && Auth::user()->id === $subject->id)
-        <button class="message" disabled> <i class="fas fa-envelope"></i> Stuur bericht</button>
+{{--        <button class="message" disabled> <i class="fas fa-envelope"></i> Stuur bericht</button>--}}
         <button class="fav" onclick="window.location='{{ route('user_edit_profile') }}'"> <i class="far fa-edit"></i> Bewerk</button>
     @endif
     <h1 class="name">{{$subject->name}}</h1>
