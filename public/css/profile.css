@@ -135,6 +135,11 @@
     color:var(--backgroundColor);
     border-radius:var(--radius);
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+}
 
-
+.profile-edit .forminput.active input{
+    width: 5%;
+}
+.profile-edit .forminput.active label{
+    display:inline;
 }

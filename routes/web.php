@@ -23,6 +23,8 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/pet/edit/{id}', [App\Http\Controllers\PetController::class, 'edit'])->name('pet.edit');
     Route::put('/pet/update/{id}', [App\Http\Controllers\PetController::class, 'update'])->name('pet.update');
     Route::get('/pet/add/', [App\Http\Controllers\PetController::class, 'add'])->name('pet.add');
+    Route::put('/pet/store/', [App\Http\Controllers\PetController::class, 'store'])->name('pet.store');
+
 
 
 

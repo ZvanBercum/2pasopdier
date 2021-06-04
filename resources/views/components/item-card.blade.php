@@ -35,7 +35,7 @@ if($type ===  'user'){
             <div class="icon-container time">
                 <i class="fas fa-calendar-alt"></i>
                 @if(!is_null($item->start_time))
-                    {{$item->start_time}} - {{$item->end_time}}
+                    {{$item->start_time->format('d-m-Y')}} - {{$item->end_time->format('d-m-Y')}}
                 @else
                     Onbekend
                 @endif

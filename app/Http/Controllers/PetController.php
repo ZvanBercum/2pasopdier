@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\Pet;
 use Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Schema;
 
 
 class PetController extends Controller {
@@ -33,15 +34,47 @@ class PetController extends Controller {
         ]);
     }
 
-    public function edit($id){
-        $type_old = PetType::get(['id','name']);
-        $types = [];
-        foreach($type_old as $object){
-            $types[$object['id']] = $object['name'];
+    public function add(){
+        return view('pet.add',
+            ['types' => $this->getTypes()]);
+
+    }
+
+    public function store(Request $request){
+        $request->validate([
+            'pref_picture'     =>  'image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        $pet = new Pet;
+        $pet->owner_id = Auth::user()->id;
+        $pet->active = true;
+        $table = Schema::getColumnListing($pet->getTable());
+        foreach($request->all() as $name => $value){
+            if(!in_array($name, $table))continue;
+            if ($name == 'pref_picture') {
+                $image = $request->file('pref_picture');
+                $name = Str::slug($request->input('name')) . '_' . time();
+                $folder = '/uploads/images/';
+                $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                $this->uploadOne($image, $folder, 'public', $name);
+                $pet->pref_picture = $filePath;
+            }else{
+                $pet[$name] = $value;
+
+            }
         }
+        $pet->save();
+        return redirect()->route('pet.show', $pet->id)->with(['status' => 'Huisdier is toegevoegd!']);
+
+
+
+
+        $pet->save();
+    }
+
+    public function edit($id){
         return view('pet.edit',[
             'pet' => Pet::findOrFail($id),
-            'types' => $types
+            'types' => $this->getTypes()
         ]);
     }
 
@@ -104,5 +137,15 @@ class PetController extends Controller {
             'def_type' => $type
         ]);
     }
+
+    private function getTypes(){
+        $type_old = PetType::get(['id','name']);
+        $types = [];
+        foreach($type_old as $object){
+            $types[$object['id']] = $object['name'];
+        }
+        return $types;
+    }
+
 }
 
