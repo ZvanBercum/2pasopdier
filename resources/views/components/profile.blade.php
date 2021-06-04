@@ -1,7 +1,13 @@
 <div class="profile">
     <img class="owner-picture" src={{URL::asset($subject->pref_picture ?? 'img/paw-black-shape.png')}} alt="{{$subject->name}}">
     <button class="message"> <i class="fas fa-envelope"></i> Stuur bericht</button>
+    @if($subject->owner_id === Auth::user()->id)
+        <button class="fav" onclick="window.location='{{ route('pet.edit',[$subject->id]) }}'"> <i class="far fa-edit"></i> Bewerk</button>
+    @elseif(is_null($subject->owner_id) && Auth::user()->id === $subject->id)
+        <button class="fav" onclick="window.location='{{ route('user_edit_profile') }}'"> <i class="far fa-edit"></i> Bewerk</button>
+    @else
     <button class="fav"> <i class="far fa-star"></i> Maak favoriet</button>
+    @endif
     <h1 class="name">{{$subject->name}}</h1>
     @if(!is_null($subject->type) && !is_null($subject->type->name))
         <p class="type">{{$subject->type->name}}</p>

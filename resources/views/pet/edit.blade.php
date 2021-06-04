@@ -1,11 +1,10 @@
 <?php
 $genders = ['male' => 'Mannelijk', 'female' => 'Vrouwelijk', 'anders' => 'Anders'];
 $ages = ['child' => 'Jong', 'adult' => 'Volwassen', 'elderly' => 'Bejaard'];
-//$roles = [2 => 'Oppasser', 3 => 'Eigenaar', 4 => 'Eigenaar + Oppasser'];
-//$admin = $user->role == 1 ? true : false;
+$rates = ['uur', 'dag', 'week', 'maand'];
 ?>
 <x-app-layout>
-    <form class="profile-edit latest-view" action="{{ route('pet.update',$pet->id) }}" method="POST">
+    <form class="profile-edit latest-view" action="{{ route('pet.update',$pet->id) }}" enctype="multipart/form-data" method="POST">
         @csrf
         @method('PUT')
         <h1>Profiel bewerken voor {{$pet->name}}</h1>
@@ -14,7 +13,6 @@ $ages = ['child' => 'Jong', 'adult' => 'Volwassen', 'elderly' => 'Bejaard'];
             <x-label for="name" :value="_('Naam')"/>
             <x-input id="name" type="text" name="name" value="{{$pet->name}}" required/>
         </div>
-
 
         <div class="forminput file">
             <x-label for="pref_picture"  :value="_('Profielfoto')"/>
@@ -54,8 +52,8 @@ $ages = ['child' => 'Jong', 'adult' => 'Volwassen', 'elderly' => 'Bejaard'];
         </div>
 
         <div class="forminput">
-            <x-label for="type" :value="__('Type')"/>
-            <select id="type" name="type" required>
+            <x-label for="type_id" :value="__('Type')"/>
+            <select id="type_id" name="type_id" required>
                 @foreach($types as $key => $value)
                     @if($key == $pet->type->id)
                         <option value="{{$key}}" selected>{{$value}}</option>
@@ -66,6 +64,20 @@ $ages = ['child' => 'Jong', 'adult' => 'Volwassen', 'elderly' => 'Bejaard'];
             </select>
         </div>
 
+        <div class="forminput">
+            <x-label for="price" :value="__('Prijs')"/>
+            <input type="number" min="1" max="1000" value="{{$pet->price}}"/>
+            <x-label for="rate" :value="__('Per')"/>
+            <select id="rate" name="rate">
+                @foreach($rates as $value)
+                    @if($value == $pet->rate)
+                        <option value="{{$value}}" selected>{{ucfirst($value)}}</option>
+                    @else
+                        <option value="{{$value}}">{{ucfirst($value)}}</option>
+                    @endif
+                @endforeach
+            </select>
+        </div>
 
         <div class="forminput">
             <x-label for="profile" :value="_('Profiel')"/>

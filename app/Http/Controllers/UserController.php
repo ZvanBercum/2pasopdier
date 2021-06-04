@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Traits\UploadTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -9,8 +10,10 @@ use App\Models\Role;
 use App\Models\Pet;
 use Auth;
 use DateTime;
+use Illuminate\Support\Str;
 
 class UserController extends Controller {
+    use UploadTrait;
 
     public function dashboard(){
         $newestLimit = 15;
@@ -36,9 +39,11 @@ class UserController extends Controller {
     }
 
     public function update(Request $request, $id){
+        $request->validate([
+            'pref_picture'     =>  'image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
         $user = User::findOrFail($id);
         $setAge = false;
-        echo($user);
         foreach($request->all() as $name => $newValue){
             switch ($name){
                 case 'age_day':
@@ -49,10 +54,18 @@ class UserController extends Controller {
                     $timestamp = strtotime($date);
                     $user->age =date("Y-m-d", $timestamp);
                     $setAge = true;
-
+                    break;
+                case 'pref_picture':
+                    if(!is_null($newValue && $user[$name] != $newValue)) {
+                        $image = $request->file('pref_picture');
+                        $name = Str::slug($request->input('name')) . '_' . time();
+                        $folder = '/uploads/images/';
+                        $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                        $this->uploadOne($image, $folder, 'public', $name);
+                        $user->pref_picture = $filePath;
+                    }
                     break;
                 default:
-                    echo($name);
                     if(isset($user[$name])){
                         if(!is_null($newValue) && $user[$name] != $newValue){
                             $user[$name] = $newValue;
@@ -62,7 +75,8 @@ class UserController extends Controller {
             }
         }
         $user->save();
-        return redirect()->route('user.show', $user->id);
+        return redirect()->route('user.show', $user->id)->with(['status' => 'Profiel is aangepast!']);
+
     }
 
     public function sitters(Request $request){

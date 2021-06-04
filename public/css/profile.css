@@ -38,6 +38,7 @@
 .profile .message{
     position:absolute;
     top: 2%;
+    width:22%;
 }
 
 .profile .message{
@@ -124,3 +125,16 @@
     margin:20px;
 }
 
+.alert-status{
+    margin:12px auto;
+    width: 50%;
+    text-align:center;
+    padding: 6px 0;
+    background-color: var(--primaryColor);
+    border: 1px solid var(--primaryColorLighter);
+    color:var(--backgroundColor);
+    border-radius:var(--radius);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+
+
+}

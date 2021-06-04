@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\PetType;
 use App\Models\User;
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 use App\Models\Pet;
 use Auth;
+use Illuminate\Support\Str;
 
 
 class PetController extends Controller {
+    use UploadTrait;
 
     public function index(){
         return view('pet.index',[
@@ -43,33 +46,29 @@ class PetController extends Controller {
     }
 
     public function update(Request $request, $id){
-//        $user = User::findOrFail($id);
-//        $setAge = false;
-//        echo($user);
-//        foreach($request->all() as $name => $newValue){
-//            switch ($name){
-//                case 'age_day':
-//                case 'age_month':
-//                case 'age_year':
-//                    if($setAge)break;
-//                    $date = sprintf("%02d", $request->age_day).'-'.sprintf("%02d", $request->age_month).'-'.$request->age_year;
-//                    $timestamp = strtotime($date);
-//                    $user->age =date("Y-m-d", $timestamp);
-//                    $setAge = true;
-//
-//                    break;
-//                default:
-//                    echo($name);
-//                    if(isset($user[$name])){
-//                        if(!is_null($newValue) && $user[$name] != $newValue){
-//                            $user[$name] = $newValue;
-//                        }
-//                    }
-//                    break;
-//            }
-//        }
-//        $user->save();
-//        return redirect()->route('user.show', $user->id);
+        $request->validate([
+            'pref_picture'     =>  'image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+        $pet = Pet::findOrFail($id);
+        foreach($request->all() as $name => $newValue){
+            if(isset($pet[$name])){
+                if(!is_null($newValue && $pet[$name] != $newValue)) {
+                    if ($name == 'pref_picture') {
+                        $image = $request->file('pref_picture');
+                        $name = Str::slug($request->input('name')) . '_' . time();
+                        $folder = '/uploads/images/';
+                        $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                        $this->uploadOne($image, $folder, 'public', $name);
+                        $pet->pref_picture = $filePath;
+                    }else{
+                        $pet[$name] = $newValue;
+
+                    }
+                }
+            }
+        }
+        $pet->save();
+        return redirect()->route('pet.show', $pet->id)->with(['status' => 'Profiel is aangepast!']);
     }
 
 

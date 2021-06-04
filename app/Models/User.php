@@ -23,7 +23,8 @@ class User extends Authenticatable
         'location',
         'role',
         'age',
-        'gender'
+        'gender',
+        'pref_picture'
     ];
 
     /**

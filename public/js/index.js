@@ -56,7 +56,7 @@ function openContainer(){
 
 (function(){
     if(window.location.pathname  ==  '/user/edit' ||
-    window.location.pathname == '/pet/edit'){
+        window.location.pathname.indexOf("/pet/edit") > -1){
         setTimeout(function(){
             let t = document.getElementById('profile').getAttribute('data-profile');
             CKEDITOR.instances['profile'].setData(t);
@@ -64,3 +64,4 @@ function openContainer(){
 
     }
 })();
+

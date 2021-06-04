@@ -19,3 +19,6 @@ Homestead.json
 
 #PHPSTORM
 .idea
+
+#project uploads
+public/uploads/

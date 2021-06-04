@@ -4,7 +4,7 @@ $roles = [2 => 'Oppasser', 3 => 'Eigenaar', 4 => 'Eigenaar + Oppasser'];
 $admin = $user->role == 1 ? true : false;
 ?>
 <x-app-layout>
-    <form class="profile-edit latest-view" action="{{ route('user.update',$user->id) }}" method="POST">
+    <form class="profile-edit latest-view" action="{{ route('user.update',$user->id) }}" enctype="multipart/form-data"  method="POST">
         @csrf
         @method('PUT')
         <h1>Profiel bewerken voor {{$user->name}}</h1>
