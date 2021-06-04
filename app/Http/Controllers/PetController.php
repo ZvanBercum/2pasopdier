@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PetType;
 use App\Models\User;
+use App\Models\Review;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 use App\Models\Pet;
@@ -31,6 +32,12 @@ class PetController extends Controller {
     public function owner(){
         return view('pet.owner',[
             'user' => User::findOrFail(Auth::user()->id)
+        ]);
+    }
+
+    public function sitter(){
+          return view('pet.sitter',[
+            'pets' => Pet::where('sitter_id', Auth::user()->id)->get()
         ]);
     }
 
@@ -78,27 +85,25 @@ class PetController extends Controller {
             'pref_picture'     =>  'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         $pet = Pet::findOrFail($id);
+        $table = Schema::getColumnListing($pet->getTable());
         foreach($request->all() as $name => $newValue){
-            if(isset($pet[$name])){
-                if(!is_null($newValue && $pet[$name] != $newValue)) {
-                    if ($name == 'pref_picture') {
-                        $image = $request->file('pref_picture');
-                        $name = Str::slug($request->input('name')) . '_' . time();
-                        $folder = '/uploads/images/';
-                        $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
-                        $this->uploadOne($image, $folder, 'public', $name);
-                        $pet->pref_picture = $filePath;
-                    }else{
-                        $pet[$name] = $newValue;
-
-                    }
+            if(!in_array($name, $table))continue;
+            if(!is_null($newValue && $pet[$name] != $newValue)) {
+                if ($name == 'pref_picture') {
+                    $image = $request->file('pref_picture');
+                    $name = Str::slug($request->input('name')) . '_' . time();
+                    $folder = '/uploads/images/';
+                    $filePath = $folder . $name . '.' . $image->getClientOriginalExtension();
+                    $this->uploadOne($image, $folder, 'public', $name);
+                    $pet->pref_picture = $filePath;
+                }else{
+                    $pet[$name] = $newValue;
                 }
             }
         }
         $pet->save();
         return redirect()->route('pet.show', $pet->id)->with(['status' => 'Profiel is aangepast!']);
     }
-
 
     public function delete($id){
 
@@ -131,6 +136,29 @@ class PetController extends Controller {
             'def_loc' => $loc,
             'def_type' => $type
         ]);
+    }
+
+    public function accept($id){
+        $pet = Pet::findOrfail($id);
+        if($pet->user->id === Auth::user()->id){
+            return redirect()->back()->with(['status' => 'Je kan niet je eigen huisdier aannemen']);
+
+        }
+        $pet->sitter_id = Auth::user()->id;
+        $pet->save();
+        return redirect()->back()->with(['status' => 'Huisdier aangenomen']);
+    }
+
+    public function review(Request $request, $id){
+        $pet = Pet::findOrFail($id);
+        $review = new Review;
+        $review->user_id = $pet->user->id;
+        $review->reviewer_id = Auth::user()->id;
+        $review->rating = $request->get('rating');
+        $review->save();
+        $pet->sitter_id = null;
+        $pet->save();
+        return redirect()->back()->with(['status' => 'Huisdier reviewed en verwijderd']);
     }
 
     private function getTypes(){

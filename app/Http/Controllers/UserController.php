@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Pet;
+use App\Models\Review;
 use Auth;
 use DateTime;
 use Illuminate\Support\Str;
@@ -21,6 +22,9 @@ class UserController extends Controller {
             ->where('blocked_until', '<', now())
             ->orWhere('blocked_until', null)->orderBy('created_at', 'desc')->take($newestLimit)->get();
         $pets = Pet::orderBy('created_at', 'desc')->take($newestLimit)->get();
+        foreach($sitters as $sitter){
+            $sitter->rating = $this->getRating($sitter->id);
+        }
         return view('dashboard', [
             'sitters'=> $sitters,
             'pets' => $pets
@@ -29,8 +33,10 @@ class UserController extends Controller {
     }
 
     public function show($id){
+        $user = User::findOrFail($id);
+        $user->rating = $this->getRating($id);
         return view('user.show',[
-            'user' => User::findOrFail($id)
+            'user' => $user
         ]);
     }
 
@@ -42,7 +48,7 @@ class UserController extends Controller {
 
     public function update(Request $request, $id){
         $request->validate([
-            'pref_picture'     =>  'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'pref_picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         $user = User::findOrFail($id);
         $setAge = false;
@@ -112,7 +118,9 @@ class UserController extends Controller {
             })
             ->orderBy('created_at', 'desc')
             ->get();
-
+        foreach($sitters as $sitter){
+            $sitter->rating = $this->getRating($sitter->id);
+        }
         $places = User::pluck('location');
         $minAge = User::min('age');
         $date = new DateTime($minAge);
@@ -159,5 +167,17 @@ class UserController extends Controller {
             $message .=' is geblokkeerd tot '.$user->blocked_until;
         }
         return redirect()->back()->with(['status' => $message]);
+    }
+
+    private function getRating($id){
+        $ratings = Review::where('user_id', $id)->get();
+        $i = 0;
+        $sum =0;
+        foreach($ratings as $rating){
+            $i++;
+            $sum+=$rating->rating;
+        }
+        if($i === 0)return 0;
+        return $sum/$i;
     }
 }

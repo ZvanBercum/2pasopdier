@@ -18,7 +18,10 @@
     <div id="user-dropdown" class="hidden dropdown">
         <a class="btn" href="{{ route('user_edit_profile')}}">Bewerk Profiel</a>
         @if(Auth::user()->role()->get()[0]->upload_pets)
-            <a class="btn" href="{{ route('owner_pets')}}">Huisdieren</a>
+            <a class="btn" href="{{ route('owner_pets')}}">Eigen Huisdieren</a>
+        @endif
+        @if(Auth::user()->role()->get()[0]->accept_pets)
+            <a class="btn" href="{{ route('sitter_pets')}}">Oppas Huisdieren</a>
         @endif
         @if(Auth::user()->role()->get()[0]->remove_requests ||
                 Auth::user()->role()->get()[0]->block_users)

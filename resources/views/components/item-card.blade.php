@@ -51,12 +51,22 @@ if($type ===  'user'){
 
             @if($type === 'user')
                 <x-rating :rated="$item->rating"></x-rating>
-            @else
-                <x-rating :rated="$item->user->rating"></x-rating>
             @endif
         @endif
     </div>
     @if($mode == 'edit')
         <button onclick="window.location='{{ route($type.'.edit',[$item->id]) }}'">Bewerken</button>
+    @endif
+    @if($mode == 'job')
+        <form action="{{route('leave_review', [$item->id])}}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="forminput">
+                <label for="rating">Geef deze klus een aantal sterren:</label>
+                <input id=rating name="rating" value="5" type="number" min="0" max="5">
+
+            </div>
+            <button onclick="this.form.submit()">Stop met oppassen</button>
+        </form>
     @endif
 </div>

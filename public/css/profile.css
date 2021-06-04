@@ -74,7 +74,8 @@
 .profile-edit select,
 .profile-edit #location,
 .profile-edit #type,
-.profile-edit #cke_profile{
+.profile-edit #cke_profile,
+.card input{
     cursor: pointer;
     background-color: white;
     border: solid 1px var(--primaryColor);

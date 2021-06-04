@@ -81,24 +81,15 @@ $rates = ['uur', 'dag', 'week', 'maand'];
 
         <div class="forminput">
             <x-label for="start_time" :value="__('Vanaf')"/>
-            <input type="date" id="start_time" name="start_time" value="{{$pet->start_time->format('Y-m-d')}}"/>
+            <input type="date" id="start_time" name="start_time" value="{{!is_null($pet->start_time) ? $pet->start_time->format('Y-m-d') : ''}}"/>
             <x-label for="start_time" :value="__('Tot')"/>
-            <input type="date" id="end_time" name="end_time" value="{{$pet->end_time->format('Y-m-d')}}"/>
+            <input type="date" id="end_time" name="end_time" value="{{!is_null($pet->end_time) ? $pet->end_time->format('Y-m-d') : ''}}"/>
         </div>
 
         <div class="forminput">
             <x-label for="profile" :value="_('Profiel')"/>
             <textarea class="ckeditor" id="profile" name="profile" data-profile="{{$pet->profile}}" required></textarea>
         </div>
-        <div class="forminput active">
-            <x-label for="active" :value="_('Zet het dier op nonactief')"/>
-            @if($pet->active)
-                <input id=active name="active" type="checkbox"/>
-            @else
-                <input id="active" name="active" type="checkbox" checked/>
-            @endif
-        </div>
-
 
         <button type="submit">
             Opslaan
