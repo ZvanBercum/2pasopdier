@@ -36,6 +36,8 @@ Route::middleware(['auth', 'block', 'sitter'])->group(function(){
 
 Route::middleware(['auth', 'block', 'owner'])->group(function(){
     Route::get('/showsitters', [App\Http\Controllers\UserController::class, 'sitters'])->name('oppassers');
+    Route::put('/request/accept/{id}', [App\Http\Controllers\PetrequestController::class, 'accept'])->name('request.accept');
+
 });
 
 Route::middleware(['auth', 'admin'])->group(function(){
@@ -43,6 +45,8 @@ Route::middleware(['auth', 'admin'])->group(function(){
     Route::get('/admin/requests',[App\Http\Controllers\UserController::class, 'admin_requests'])->name('admin.requests');
     Route::get('/admin/block',[App\Http\Controllers\UserController::class, 'admin_block'])->name('admin.block_users');
     Route::put('/user/block/{id}', [App\Http\Controllers\UserController::class, 'user_block'])->name('user.block');
+    Route::put('/admin/requests/delete/{id}', [App\Http\Controllers\PetrequestController::class, 'delete'])->name('request.delete');
+
 });
 
 require __DIR__.'/auth.php';

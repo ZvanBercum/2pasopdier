@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Petrequest;
 use App\Traits\UploadTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -154,6 +155,18 @@ class UserController extends Controller {
         return view('admin.block',
         ['users' => User::get(),
             'roles' => $roles]);
+    }
+
+    public function admin_requests(){
+        $reqs = Petrequest::get();
+        $user_old = User::get();
+        $users = [];
+        foreach($user_old as $user){
+            $users[$user['id']] = $user;
+        }
+        return view('admin.request',
+        ['requests' => $reqs,
+            'users' => $users]);
     }
 
     public function user_block(Request $request, $id){

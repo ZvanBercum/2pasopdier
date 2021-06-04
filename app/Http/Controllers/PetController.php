@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\PetType;
 use App\Models\User;
 use App\Models\Review;
+use App\Models\Petrequest;
 use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 use App\Models\Pet;
@@ -23,8 +24,12 @@ class PetController extends Controller {
     }
 
     public function show($id){
+        $pet = Pet::findOrFail($id);
+        if($pet->owner_id === Auth::user()->id){
+            $pet->requests = Petrequest::where('owner_id', Auth::user()->id)->get();
+        }
         return view('pet.show',[
-            'pet' => Pet::findOrFail($id)
+            'pet' => $pet,
         ]);
 
     }
@@ -142,11 +147,24 @@ class PetController extends Controller {
         $pet = Pet::findOrfail($id);
         if($pet->user->id === Auth::user()->id){
             return redirect()->back()->with(['status' => 'Je kan niet je eigen huisdier aannemen']);
-
         }
-        $pet->sitter_id = Auth::user()->id;
-        $pet->save();
+        $req = new Petrequest();
+        $req->sitter_id = Auth::user()->id;
+        $req->owner_id = $pet->user->id;
+        $req->pet_id = $pet->id;
+        $req->accepted = false;
+        $req->save();
         return redirect()->back()->with(['status' => 'Huisdier aangenomen']);
+    }
+
+    public function owner_accept($req_id){
+        $req = Petrequest::findOrFail($req_id);
+        $req->accepted = true;
+        $pet = Pet::findOrFail($req_id->pet_id);
+        $pet->sitter_id = $req->sitter_id;
+        $pet->save();
+        $req->save();
+        return redirect()->back()->with(['status' => 'Oppasser aangenomen']);
     }
 
     public function review(Request $request, $id){

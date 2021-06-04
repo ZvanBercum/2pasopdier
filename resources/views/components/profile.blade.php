@@ -51,7 +51,6 @@
             @endif
         </div>
     @endif
-
     @if(!is_null($subject->owner_id))
         <div class="icon-container owner" onclick="window.location='{{ route('user.show',[$subject->owner_id]) }}'">
             <i class="fas fa-user-alt"></i> {{$subject->user->name}}
@@ -61,5 +60,22 @@
     <p>
         {!! $subject->profile !!}
     </p>
+
+    @if(!is_null($subject->requests))
+    <hr>
+    <h3>Oppasverzoeken</h3>
+    @foreach($subject->requests as $request)
+        @if(!$request->accepted)
+        <form action="{{route('request.accept', [$request->id])}}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="icon-container owner" onclick="window.location='{{ route('user.show',[$request->sitter_id]) }}'">
+                <i class="fas fa-user-alt"></i> {{$request->sitter->name}}
+                <button onclick="this.form.submit()">Accepteer</button>
+            </div>
+        </form>
+            @endif
+    @endforeach
+    @endif
 </div>
 
