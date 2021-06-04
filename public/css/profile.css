@@ -9,6 +9,7 @@
     min-height: 250px;
     padding-top:125px;
     text-align:center;
+    padding-bottom:12px;
 }
 
 .profile-pets .card .rating{
@@ -53,6 +54,16 @@
     margin: -7px 0 10px 0;
     color: var(--primaryColor);
 }
+
+.profile .owner{
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.profile .owner:hover{
+    color:var(--primaryColor);
+}
+
 
 /*PROFILE EDITING*/
 .profile-edit{

@@ -64,11 +64,6 @@ class PetController extends Controller {
         }
         $pet->save();
         return redirect()->route('pet.show', $pet->id)->with(['status' => 'Huisdier is toegevoegd!']);
-
-
-
-
-        $pet->save();
     }
 
     public function edit($id){

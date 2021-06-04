@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="{{ asset('css/latest-view.css') }}">
         <link rel="stylesheet" href="{{ asset('css/overview.css') }}">
         <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+
         <!-- Font awesome -->
        <script src="https://kit.fontawesome.com/889b7cea00.js" crossorigin="anonymous"></script>
         <!-- CKEditor -->
@@ -32,6 +34,7 @@
     @include('layouts.navigation')
     <!-- Page Content -->
     <main>
+        <x-flash-warning/>
         {{ $slot }}
     </main>
     </body>

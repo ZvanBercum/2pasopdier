@@ -54,6 +54,7 @@ function openContainer(){
     }
 }
 
+
 (function(){
     if(window.location.pathname  ==  '/user/edit' ||
         window.location.pathname.indexOf("/pet/edit") > -1){

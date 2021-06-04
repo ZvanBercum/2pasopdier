@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth', 'block'])->group(function() {
     Route::redirect('/', 'dashboard');
     Route::get('/dashboard', [App\Http\Controllers\UserController::class, 'dashboard'])->name('dashboard');
     Route::get('/user/show/{id}', [App\Http\Controllers\UserController::class, 'show'])->name('user.show');
@@ -24,19 +24,22 @@ Route::middleware(['auth'])->group(function() {
     Route::put('/pet/update/{id}', [App\Http\Controllers\PetController::class, 'update'])->name('pet.update');
     Route::get('/pet/add/', [App\Http\Controllers\PetController::class, 'add'])->name('pet.add');
     Route::put('/pet/store/', [App\Http\Controllers\PetController::class, 'store'])->name('pet.store');
-
-
-
-
-
 });
 
-Route::middleware(['auth', 'sitter'])->group(function(){
+Route::middleware(['auth', 'block', 'sitter'])->group(function(){
     Route::get('/showpets', [App\Http\Controllers\PetController::class, 'pets'])->name('dieren');
 });
 
-Route::middleware(['auth', 'owner'])->group(function(){
+Route::middleware(['auth', 'block', 'owner'])->group(function(){
     Route::get('/showsitters', [App\Http\Controllers\UserController::class, 'sitters'])->name('oppassers');
+});
+
+Route::middleware(['auth', 'admin'])->group(function(){
+    Route::get('/admin',[App\Http\Controllers\UserController::class, 'admin'])->name('admin_panel');
+    Route::get('/admin/requests',[App\Http\Controllers\UserController::class, 'admin_requests'])->name('admin.requests');
+    Route::get('/admin/block',[App\Http\Controllers\UserController::class, 'admin_block'])->name('admin.block_users');
+    Route::put('/user/block/{id}', [App\Http\Controllers\UserController::class, 'user_block'])->name('user.block');
+
 });
 
 require __DIR__.'/auth.php';

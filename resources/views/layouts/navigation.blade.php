@@ -20,6 +20,10 @@
         @if(Auth::user()->role()->get()[0]->upload_pets)
             <a class="btn" href="{{ route('owner_pets')}}">Huisdieren</a>
         @endif
+        @if(Auth::user()->role()->get()[0]->remove_requests ||
+                Auth::user()->role()->get()[0]->block_users)
+            <a class="btn" href="{{ route('admin_panel')}}">Admin</a>
+        @endif
         <a class="btn" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logoutForm').submit(); ">Uitloggen</a>
     </div>
 

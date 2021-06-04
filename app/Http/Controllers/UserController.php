@@ -17,7 +17,9 @@ class UserController extends Controller {
 
     public function dashboard(){
         $newestLimit = 15;
-        $sitters = User::whereIn('role', [1,2,4])->orderBy('created_at', 'desc')->take($newestLimit)->get();
+        $sitters = User::whereIn('role', [1,2,4])
+            ->where('blocked_until', '<', now())
+            ->orWhere('blocked_until', null)->orderBy('created_at', 'desc')->take($newestLimit)->get();
         $pets = Pet::orderBy('created_at', 'desc')->take($newestLimit)->get();
         return view('dashboard', [
             'sitters'=> $sitters,
@@ -129,5 +131,33 @@ class UserController extends Controller {
             'male' => $male,
             'def_loc' => $loc
         ]);
+    }
+
+    public function admin(){
+        return view('admin.index');
+    }
+
+    public function admin_block(){
+        $rolesOld = Role::get();
+        $roles = [];
+        foreach($rolesOld as $role){
+            $roles[$role->id] = $role;
+        }
+        return view('admin.block',
+        ['users' => User::get(),
+            'roles' => $roles]);
+    }
+
+    public function user_block(Request $request, $id){
+        $user = User::findOrFail($id);
+        $user->blocked_until = $request->get('blocked_until');
+        $user->save();
+        $message = $user->name;
+        if(is_null($user->blocked_until)){
+            $message .= ' is ongeblokkeerd';
+        }else{
+            $message .=' is geblokkeerd tot '.$user->blocked_until;
+        }
+        return redirect()->back()->with(['status' => $message]);
     }
 }

@@ -46,6 +46,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    protected $dates = ['blocked_until'];
+
     public function role(){
         return $this->hasOne(Role::class, 'id', 'role');
     }

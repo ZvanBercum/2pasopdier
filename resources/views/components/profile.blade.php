@@ -43,13 +43,18 @@
         <div class="icon-container time">
             <i class="fas fa-calendar-alt"></i>
             @if(!is_null($subject->start_time))
-                {{$subject->start_time}} - {{$subject->end_time}}
+                {{$subject->start_time->format('d-m-Y')}} - {{$subject->end_time->format('d-m-Y')}}
             @else
                 Onbekend
             @endif
         </div>
     @endif
 
+    @if(!is_null($subject->owner_id))
+        <div class="icon-container owner" onclick="window.location='{{ route('user.show',[$subject->owner_id]) }}'">
+            <i class="fas fa-user-alt"></i> {{$subject->user->name}}
+        </div>
+    @endif
     <hr>
     <p>
         {!! $subject->profile !!}
